@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://blq7nn0b4cfpg" path="res://scripts/RagdollPlayer.cs" id="1_ragdoll"]
 [ext_resource type="Script" uid="uid://cma37c1gywcc2" path="res://scripts/CameraFollow.cs" id="2_camera"]
 [ext_resource type="Script" uid="uid://ulbsthhwi7ke" path="res://scripts/DebugMenu.cs" id="3_debug"]
+[ext_resource type="PackedScene" uid="uid://capw8uf3xqqyk" path="res://characters/char.glb" id="4_jyhfs"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
 
@@ -65,3 +66,6 @@ script = ExtResource("2_camera")
 
 [node name="DebugMenu" type="CanvasLayer" parent="." unique_id=1035225106]
 script = ExtResource("3_debug")
+
+[node name="char" parent="." unique_id=2140407767 instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.050481796, 0.0020374565, -0.3234446)
