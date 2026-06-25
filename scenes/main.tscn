@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://vmvry5uxub8e"]
+
+[ext_resource type="Script" uid="uid://blq7nn0b4cfpg" path="res://scripts/RagdollPlayer.cs" id="1_ragdoll"]
+[ext_resource type="Script" uid="uid://cma37c1gywcc2" path="res://scripts/CameraFollow.cs" id="2_camera"]
+[ext_resource type="Script" uid="uid://ulbsthhwi7ke" path="res://scripts/DebugMenu.cs" id="3_debug"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
+
+[sub_resource type="Sky" id="Sky_1"]
+sky_material = SubResource("ProceduralSkyMaterial_1")
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 2
+sky = SubResource("Sky_1")
+ambient_light_source = 3
+ambient_light_energy = 0.4
+tonemap_mode = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
+size = Vector2(50, 50)
+
+[sub_resource type="StandardMaterial3D" id="Mat_ground"]
+albedo_color = Color(0.28, 0.38, 0.3, 1)
+roughness = 0.9
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ground"]
+size = Vector3(50, 0.5, 50)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
+radius = 0.3
+height = 1.8
+
+[node name="Main" type="Node3D" unique_id=1185969168]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1762220180]
+environment = SubResource("Environment_1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=65373470]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 10, 0)
+light_energy = 1.5
+shadow_enabled = true
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=1215256183]
+collision_mask = 3
+
+[node name="GroundMesh" type="MeshInstance3D" parent="Ground" unique_id=927473438]
+mesh = SubResource("PlaneMesh_ground")
+surface_material_override/0 = SubResource("Mat_ground")
+
+[node name="GroundShape" type="CollisionShape3D" parent="Ground" unique_id=1543571302]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_ground")
+
+[node name="RagdollPlayer" type="CharacterBody3D" parent="." unique_id=1017908418]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_ragdoll")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RagdollPlayer" unique_id=1552769312]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_player")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1684722840]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 6)
+script = ExtResource("2_camera")
+
+[node name="DebugMenu" type="CanvasLayer" parent="." unique_id=1035225106]
+script = ExtResource("3_debug")
